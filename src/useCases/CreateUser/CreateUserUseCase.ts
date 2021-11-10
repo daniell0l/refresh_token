@@ -7,14 +7,13 @@ interface IUserRequest {
     username: string;
     password: string;
 }
-
 class CreateUserUseCase {
     async execute({ name, username, password }: IUserRequest): Promise<User> {
         try {
             const userAlreadyExists = await client.user.findFirst({
                 where: { username }
             })
-            if (userAlreadyExists) {
+            if (userAlreadyExists) { 
                 throw new Error(`User ${username} already exists`)
             }
             const passwordHash = await hash(password, 8);
